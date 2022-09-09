@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ProjectsRepository: JpaRepository<Projects, Long> {
 
+    fun findAllByStatus(status: String): List<Projects>
 }

@@ -122,12 +122,17 @@ class ProjectsController {
 
     @PostMapping("")
     fun getProjects(
+        status: String?,
         response: HttpServletResponse
     ): ServiceResponse<Projects>? {
 
         return try {
-            val projects = projectsRepository.findAll()
-
+            val projects = mutableListOf<Projects>()
+            if(status == null) {
+                projects.addAll(projectsRepository.findAll())
+            } else {
+                projects.addAll(projectsRepository.findAllByStatus(status))
+            }
             ServiceResponse(
                 data = projects.toList(),
                 message = "Everything is fine",
