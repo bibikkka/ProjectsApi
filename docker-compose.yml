@@ -1,0 +1,23 @@
+version: '3'
+services:
+  myspringapp:
+    image: myapplication
+    build: .
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - mypostgres
+    environment:
+      - spring.datasource.url=jdbc:postgresql://mypostgres:5432/ProjectsDB
+      - spring.datasource.username=postgres
+      - spring.datasource.password=1111
+  mypostgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=1111
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=ProjectsDB

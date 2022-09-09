@@ -7,7 +7,6 @@ import com.example.projectsapi.model.user.LoginUser
 import com.example.projectsapi.model.user.NewUser
 import com.example.projectsapi.repository.UserRepository
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -20,10 +19,9 @@ import javax.validation.Valid
 @RestController
 @Tag(name = "Authorization API", description = "All about user authorization")
 @RequestMapping("/api2/auth/")
-class AuthController {
-
-    @Autowired
-    lateinit var userRepository: UserRepository
+class AuthController(
+    private val userRepository: UserRepository
+) {
 
     @PostMapping("/signin")
     fun authenticateUser(

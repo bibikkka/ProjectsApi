@@ -8,7 +8,6 @@ import com.example.projectsapi.model.tasks.NewTasks
 import com.example.projectsapi.repository.ProjectsRepository
 import com.example.projectsapi.repository.TasksRepository
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletResponse
@@ -17,14 +16,10 @@ import javax.validation.Valid
 @RestController
 @Tag(name = "Projects API", description = "All about projects")
 @RequestMapping("/api2/projects/")
-class ProjectsController {
-
-    @Autowired
-    lateinit var projectsRepository: ProjectsRepository
-
-    @Autowired
-    lateinit var tasksRepository: TasksRepository
-
+class ProjectsController (
+    private val projectsRepository: ProjectsRepository,
+    private val tasksRepository: TasksRepository
+) {
 
     @PostMapping("/tasks/add")
     fun addTasks(

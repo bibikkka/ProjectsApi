@@ -5,7 +5,6 @@ import com.example.projectsapi.model.responses.ServiceResponse
 import com.example.projectsapi.model.responses.UserResponse
 import com.example.projectsapi.repository.UserRepository
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,10 +16,9 @@ import javax.servlet.http.HttpServletResponse
 @RestController
 @Tag(name = "User API", description = "All about users")
 @RequestMapping("/api2/users/")
-class UserController {
-
-    @Autowired
-    lateinit var userRepository: UserRepository
+class UserController(
+    private var userRepository: UserRepository
+) {
 
     @GetMapping("/getByRole")
     fun getUsersByRole(
