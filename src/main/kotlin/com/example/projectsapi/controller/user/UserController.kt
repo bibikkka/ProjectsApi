@@ -57,6 +57,42 @@ class UserController(
         }
     }
 
+    @GetMapping("/getUsers")
+    fun getUsers(
+        response: HttpServletResponse
+    ): ServiceResponse<UserResponse>? {
+        val userCandidate: List<User> = userRepository.findAll()
+
+        if (userCandidate.isNotEmpty()) {
+            val user = mutableListOf<UserResponse>()
+
+            for ( i in userCandidate.indices){
+                user.add(
+                    UserResponse(
+                        id = userCandidate[i].id,
+                        username = userCandidate[i].username,
+                        name = userCandidate[i].name,
+                        email = userCandidate[i].email,
+                        password = userCandidate[i].password,
+                        role = userCandidate[i].role,
+                    )
+                )
+            }
+
+            return ServiceResponse(
+                data = user,
+                status = HttpStatus.OK,
+                message = "Everything is fine"
+            )
+        } else {
+            return ServiceResponse(
+                data = null,
+                status = HttpStatus.BAD_REQUEST,
+                message = "Users with this role not found"
+            )
+        }
+    }
+
 }
 
 
